@@ -1,0 +1,190 @@
+FORMAT: 1A
+HOST: http://api.irresistibleapis.com/v1
+
+# Pizza Toppings API
+
+# Pizzas [/pizzas{?nameString}]
+
+Resource representing all the pizzas in the system.
+
++ Attributes (array[Pizza])
+
+## List [GET]
+
+Retrieves a list of pizzas in the system.
+
++ Parameters
+    + nameString (string, optional) - String to match in the pizza name
+
++ Response 200 (application/json)
+    + Attributes (Pizzas)
+
+#### Add Pizza [POST]
+
+Adds a new pizza to the list.
+
++ Request (application/json)
+    + Attributes (Pizza)
+
++ Response 201 (application/json)
+
+    Pizza created.
+
+    + Attributes (Pizza)
+
++ Response 409 (application/json)
+
+    Duplicate pizza name or ID found.
+
+    + Attributes (Error Message)
+        + message: Duplicate pizza ID found
+
+### Pizza [/pizzas/{pizzaid}]
+
+Resource representing one pizza.
+
++ Parameters
+    + pizzaid (number, required) - ID for the pizza
+
++ Attributes
+    + id: 1 (number, required) - ID of the pizza
+    + name: Maui Wowie (required) - Name of the pizza
+    + location: /pizzas/1 (string) - URL of the pizza
+    + toppings: 2, 3 (array) - List of the topping IDs on the pizza
+
+#### Retrieve [GET]
+
+Retrieves an individual pizza.
+
++ Response 200 (application/json)
+    + Attributes (Pizza)
+
++ Response 404 (application/json)
+    + Attributes (Error Message)
+
+#### Update [PUT]
+
+Updates an individual pizza.
+
++ Request (application/json)
+    + Attributes (Pizza)
+
++ Response 204
+
++ Response 404 (application/json)
+
+    Pizza not found.
+
+    + Attributes (Error Message)
+
+#### Remove [DELETE]
+
+Deletes an individual pizza.
+
++ Response 204
+
++ Response 404 (application/json)
+
+    Pizza not found.
+
+    + Attributes (Error Message)
+
+### Toppings [/toppings{?nameString}]
+
+Resource representing all the toppings in the system.
+
++ Attributes (array[Topping])
+
+## List [GET]
+
+Retrieves a list of toppings in the system.
+
++ Parameters
+    + nameString - String to match in the topping name
+
++ Response 200 (application/json)
+    + Attributes (Toppings)
+
+#### Add new Topping [POST]
+
+Adds a new topping to the list.
+
++ Request (application/json)
+    + Attributes (Topping)
+
++ Response 201 (application/json)
+
+    Topping created.
+
+    + Attributes (Topping)
+
++ Response 409 (application/json)
+
+    Duplicate topping name.
+
+    + Attributes (Error Message)
+        + message: Duplicate topping name found
+
+### Topping [/toppings/{toppingid}]
+
++ Parameters
+    + toppingid (number, required) -  ID for the topping
+
++ Attributes
+    + id (number, required) -  ID for the topping
+    + name: Pepperoni (string) - Name of the topping
+    + location: /toppings/1" (string) - URL of the topping
+
+#### Retrieve [GET]
+
+Retrieves an individual topping.
+
++ Response 200 (application/json)
+    + Attributes (Topping)
+
++ Response 404 (application/json)
+
+    Topping not found.
+
+    + Attributes (Error Message)
+        + message: No topping with that ID found
+
+#### Update [PUT]
+
+Updates an individual topping.
+
++ Request (application/json)
+    + Attributes (Topping)
+
++ Response 204 (application/json)
+
+    Topping updated.
+
+    + Attributes (Topping)
+
++ Response 404 (application/json)
+
+    Topping not found.
+
+    + Attributes (Error Message)
+        + message: No topping with that ID found
+
+#### Delete [DELETE]
+
+Deletes an individual topping.
+
++ Response 204
+
++ Response 404 (application/json)
+
+    Topping not found.
+
+    + Attributes (Error Message)
+        + message: No topping with that ID found
+
+# Data Structures
+
+## Error Message (object)
+
+- message: No pizza with that ID found. (string) - A descriptive message of the error.
+
